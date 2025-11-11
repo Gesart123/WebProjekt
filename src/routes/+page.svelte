@@ -2,11 +2,12 @@
 	let { data } = $props();
 
 	import { flip } from 'svelte/animate';
-	import { setLocale } from '$lib/paraglide/runtime';
+
+	import { getLocale, setLocale } from '$lib/paraglide/runtime.js';
 	import { m } from '$lib/paraglide/messages.js';
 
-	// language selector
-	let selectedLang = $state('en');
+	let selectedLang = $state(getLocale());
+
 	const languages = [
 		{ code: 'en', label: 'English' },
 		{ code: 'es', label: 'Español' },
@@ -14,12 +15,13 @@
 		{ code: 'sq', label: 'Shqip' },
 		{ code: 'de', label: 'Deutsch' }
 	];
+
 	function changeLang(e) {
-		selectedLang = e.target.value;
-		setLocale(selectedLang);
+		const lang = e.target.value;
+		selectedLang = lang;
+		setLocale(lang); 
 	}
 
-	// article filter
 	let filteredArticles = $state(data.articles);
 	let selectedAuthor = $state('all');
 	let authors = Array.from(new Set(data.articles.map(a => a.author)));
@@ -32,10 +34,8 @@
 	}
 </script>
 
-<!-- BEAUTIFUL BACKGROUND -->
 <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
 
-	<!-- FLOATING LANGUAGE SELECTOR -->
 	<div class="fixed top-4 right-4">
 		<select
 			class="px-4 py-2 rounded-lg border shadow bg-white text-blue-700 hover:shadow-lg transition"
@@ -48,10 +48,8 @@
 		</select>
 	</div>
 
-	<!-- MAIN CONTENT CONTAINER -->
 	<div class="max-w-6xl mx-auto px-6 pt-10">
 
-		<!-- USER BOX -->
 		<div class="flex justify-center">
 			<div class="w-full md:w-3/4 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-blue-100">
 				{#if data.user}
@@ -82,7 +80,6 @@
 			</div>
 		</div>
 
-		<!-- TITLE -->
 		<div class="text-center mt-10">
 			<h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 drop-shadow-sm">
 				{m.image_blog()}
@@ -92,7 +89,6 @@
 				{m.filter_by_author()}
 			</p>
 
-			<!-- AUTHOR FILTER -->
 			<div class="mt-4">
 				<select
 					class="border rounded-xl px-5 py-2 shadow bg-white text-blue-700 border-blue-300 hover:shadow-lg"
@@ -107,7 +103,6 @@
 			</div>
 		</div>
 
-		<!-- ARTICLE GRID -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 pb-16">
 			{#each filteredArticles.slice(0, 25) as article (article.id)}
 				<div
