@@ -1,4 +1,15 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from de!"
+  "hello_world": "Hallo, {name}!",
+  "welcome_back": "Willkommen zurück, {user}!",
+  "logout": "Abmelden",
+  "login": "Anmelden",
+  "register": "Registrieren",
+  "not_logged_in": "Du bist nicht eingeloggt.",
+  "or": "oder",
+  "image_blog": "Bild-Blog",
+  "filter_by_author": "Nach Autor filtern:",
+  "all_authors": "Alle Autoren",
+  "author": "Autor",
+  "votes": "Stimmen",
+  "upvote": "Hochstimmen"
 }
